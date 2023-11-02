@@ -1,4 +1,5 @@
 #include "binary_trees.h"
+int calculate_diff(const binary_tree_t *, const binary_tree_t *, int);
 
 /**
  * binary_tree_balance - Measures the balance factor of binary tree.
@@ -7,40 +8,40 @@
  * Return: difference between branches.
  */
 
-typedef struct binary_tree_s
-{
-	int n;
-	struct binary_tree_s *left;
-	struct binary_tree_s *right;
-} binary_tree_t;
-
-int height(const binary_tree_t *tree)
-{
-	if (tree == NULL)
-		return (-1);
-	else
-	{
-		int left_height = height(tree->left);
-		int right_height = height(tree->right);
-
-		if (left_height > right_height)
-			return (left_height + 1);
-		else
-			return (right_height + 1);
-	}
-}
-
-
 int binary_tree_balance(const binary_tree_t *tree)
 {
-	binary_tree_t difference;
+	int diff;
 
-	difference = 0;
-
+	diff = 0;
 	if (tree == NULL)
-		return 0;
+		return (0);
+	diff = calculate_diff(tree, tree, diff);
+	return (diff);
+}
 
-	else
-		difference = height(tree->left) - height(tree->right);
-	return (difference);
+/**
+ * difference - measures balance factor of binary tree.
+ * @h: The original root node of the tree.
+ * @tree: Pointer to the root of the current node.
+ * @diff: difference between left and right branch
+ * Return: The difference between branches.
+ */
+
+int difference(const binary_tree_t *head, const binary_tree_t *tree, int diff)
+{
+	int right;
+	int left;
+
+	right = diff;
+	left = diff;
+	if (tree == NULL)
+		return (0);
+	left = left + difference(head, tree->left, left);
+	right = right + difference(head, tree->right, right);
+
+	if (tree == head)
+		return (left - right);
+	if (right > left)
+		return (right + 1);
+	return (left + 1);
 }
