@@ -1,5 +1,5 @@
 #include "binary_trees.h"
-int cal(const binary_tree_t *, const binary_tree_t *, int);
+int cal(const binary_tree_t *head, const binary_tree_t *tree, int difference)
 
 /**
  * binary_tree_balance - Measures the balance factor of binary tree.
@@ -26,6 +26,7 @@ int binary_tree_balance(const binary_tree_t *tree)
  * @difference: difference between left and right.
  * Return: The difference between branches.
  */
+
 int cal(const binary_tree_t *head, const binary_tree_t *tree, int difference)
 {
 	int right;
